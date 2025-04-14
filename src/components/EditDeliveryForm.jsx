@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {  ServerUrl } from "../Constant";
 
 const getCoordinates = async (place) => {
   const response = await axios.get('https://nominatim.openstreetmap.org/search', {
@@ -75,9 +76,9 @@ const EditDeliveryForm = () => {
         pId: id,
         packageId: formData.packageId,
         source: formData.source,
-        sourceLocation: { coordinates:[ sourceCoords.lng,sourceCoords.lat]},
+        sourceLocation: { type : 'Point',coordinates:[ sourceCoords.lng,sourceCoords.lat]},
         destination: formData.destination,
-        destinationLocation: { coordinates: [ destCoords.lng,destCoords.lat] },
+        destinationLocation: {type : 'Point', coordinates: [ destCoords.lng,destCoords.lat] },
         status: formData.status,
         customer: {
           name: formData.customerName,
@@ -85,7 +86,7 @@ const EditDeliveryForm = () => {
         },
       };
 
-      const response = await axios.post('http://192.168.1.106:5000/api/update-package', payload, {
+      const response = await axios.post(ServerUrl+'/update-package', payload, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -201,7 +202,7 @@ const EditDeliveryForm = () => {
                   value={formData.status}
                   onChange={handleChange}
                 >
-                  <option value="Pending">Pending</option>
+                    <option value="Pending">Pending</option>
                   <option value="Out for Delivery">Out for Delivery</option>
                   <option value="Delivered">Delivered</option>
                 </select>

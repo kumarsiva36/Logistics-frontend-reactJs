@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
+import {  ServerUrl } from "../Constant";
 const getCoordinates = async (place) => {
   const response = await axios.get('https://nominatim.openstreetmap.org/search', {
     params: { format: 'json', q: place },
@@ -18,6 +18,7 @@ const getCoordinates = async (place) => {
     throw new Error(`Could not find coordinates for: ${place}`);
   }
 };
+
 
 const CreateDeliveryForm = () => {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ const CreateDeliveryForm = () => {
         },
       };
 
-      const response = await axios.post('http://192.168.1.106:5000/api/addpackage', payload, {
+      const response = await axios.post(ServerUrl+'/addpackage', payload, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -97,9 +98,9 @@ const CreateDeliveryForm = () => {
       <div className="card shadow-lg border-0">
         <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
           <h4 className="mb-0">🚚 Create Delivery Package</h4>
-          <button className="btn btn-outline-light btn-sm" onClick={handleViewClick}>
+          {/* <button className="btn btn-outline-light btn-sm" onClick={handleViewClick}>
             📦 View All Packages
-          </button>
+          </button> */}
         </div>
 
         <div className="card-body">
@@ -182,7 +183,7 @@ const CreateDeliveryForm = () => {
                   value={formData.status}
                   onChange={handleChange}
                 >
-                  <option value="Pending">Pending</option>
+                    <option value="Pending">Pending</option>
                   <option value="Out for Delivery">Out for Delivery</option>
                   <option value="Delivered">Delivered</option>
                 </select>

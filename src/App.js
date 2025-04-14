@@ -9,6 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ViewPackageDetails from './components/ViewPackage';
 import EditDeliveryForm from './components/EditDeliveryForm';
 import CreateDriverForm from './components/UpdateDeliveryForm';
+import EditDriverForm from './components/EditDriverForm';
+import ViewDriverDetails from './components/ViewDriverDetails';
+import AssignDriver from './components/AssignDriver';
+import UpdateStatus from './components/UpdateStatus';
 
 const AppContent = () => {
   const navigate = useNavigate();
@@ -36,14 +40,12 @@ const AppContent = () => {
           <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-3 text-white">
             <h4 className="text-center w-100 mb-4">📦 Delivery App</h4>
             <ul className="nav nav-pills flex-column mb-auto w-100">
+             
               <li className="nav-item w-100">
-                <Link to="/" className="nav-link text-white px-3">🏠 Dashboard</Link>
-              </li>
-              <li className="nav-item w-100">
-                <Link to="/create" className="nav-link text-white px-3">➕ Create Package</Link>
+                <Link to="/view-package" className="nav-link text-white px-3">🏠 Dashboard</Link>
               </li>
               <li>
-                <Link to="/update/1" className="nav-link text-white px-3">✏️ Create Driver Details</Link>
+                <Link to="view-driver" className="nav-link text-white px-3"> Driver Details</Link>
               </li>
               {/* <li className="nav-item w-100">
                 <Link to="/map" className="nav-link text-white px-3">🗺️ Map View</Link>
@@ -62,11 +64,15 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Dashboard deliveries={deliveries} />} />
             <Route path="/create" element={<CreateDeliveryForm onCreate={() => {}} />} />
-            <Route path="/update/:id" element={<CreateDriverForm />} />
+            <Route path="/createdriver" element={<CreateDriverForm />} />
             <Route path="/webhooks" element={<WebhookSimulator logs={logs} onViewMap={handleViewMap} />} />
             <Route path="/map" element={<MockMapView />} />
             <Route path="/view-package" element={<ViewPackageDetails />} />
             <Route path="/edit-package" element={<EditDeliveryForm />} />
+            <Route path="/edit-driver" element={<EditDriverForm />} />
+            <Route path="/view-driver" element={<ViewDriverDetails />} />
+            <Route path="/assign-driver" element={<AssignDriver />} />
+            <Route path="/update-status" element={<UpdateStatus />} />
           </Routes>
         </div>
       </div>

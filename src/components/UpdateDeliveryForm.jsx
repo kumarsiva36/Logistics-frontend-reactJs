@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {  ServerUrl } from "../Constant";
 
 const CreateDriverForm = () => {
   const { id } = useParams(); // Optional, if needed for associating delivery
@@ -42,7 +43,7 @@ const CreateDriverForm = () => {
         },
       };
 
-      const response = await axios.post('http://192.168.1.106:5000/api/add-driver', payload);
+      const response = await axios.post(ServerUrl+'/add-driver', payload);
       setMessage({ type: 'success', text: '✅ Driver added successfully!' });
       if (response.data.status === 'success') {
               Swal.fire({
@@ -52,7 +53,7 @@ const CreateDriverForm = () => {
                 timerProgressBar: true,
                 allowOutsideClick: false,
               });
-              navigate('/view-package');
+              navigate('/view-driver');
             }
 
       // Optional: clear form after success
